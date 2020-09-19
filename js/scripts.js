@@ -29,7 +29,9 @@
 const gallery = document.getElementById('gallery');
 const serachBar = document.querySelector('.search-container');
 
-
+// ---------------------------------------------------------
+// FETCH FUNCTIONS
+// ---------------------------------------------------------
 fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12', {
   method: "GET",
   withCredentials: true,
@@ -38,5 +40,31 @@ fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=1
   }
 })
   .then(response => response.json())
-  .then(data => console.log(data.results))
+  .then(data => generateGallery(data.results))
   .catch(error => console.log(error))
+
+// ---------------------------------------------------------
+// HELPER FUNCTIONS
+// ---------------------------------------------------------
+
+function generateGallery(employees) {
+  employees.forEach(employee => {
+    const html = `
+      <div class="card">
+        <div class="card-img-container">
+            <img class="card-img" src="${employee.picture.medium}" alt="profile picture">
+        </div>
+        <div class="card-info-container">
+            <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
+            <p class="card-text">${employee.email}</p>
+            <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
+        </div>
+      </div>
+    `;
+    gallery.insertAdjacentHTML('beforeend', html);
+  })
+};
+
+ // ---------------------------------------------------------
+ // EVENT FUNCTIONS
+ // ---------------------------------------------------------
