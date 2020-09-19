@@ -64,8 +64,6 @@ document.body.appendChild(modalContainer);
 const gallery = document.getElementById('gallery');
 const serachBar = document.querySelector('.search-container');
 let employees = {};
-let galleryCards = document.querySelectorAll('#gallery .card')
-
 
 
 // ---------------------------------------------------------
