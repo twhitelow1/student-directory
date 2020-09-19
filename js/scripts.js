@@ -77,7 +77,7 @@ let data = fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,na
   }
 })
   .then(response => response.json())
-  .then(data => generateGallery(data.results))
+  .then(data => setEmployees(data.results))
   .catch(error => {
     gallery.innerHTML = `<h2> Looks like we had an issue grabbing the employees. Refresh the page.`
     gallery.style.display = 'block';
@@ -90,12 +90,12 @@ let data = fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,na
 // ---------------------------------------------------------
 
 function setEmployees(apiObject) {
-
+  //save the employeesObject to employees
+  employees = apiObject;
+  generateGallery(employees);
 }
 
 function generateGallery(employeesObject) {
-  //save the employeesObject to employees
-  employees = employeesObject;
   employeesObject.forEach((employee, index) => {
 
     const html = `
