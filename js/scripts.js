@@ -44,6 +44,8 @@ const closeButton = document.createElement("button");
 closeButton.setAttribute('class', 'modal-close-btn');
 closeButton.setAttribute('id', 'modal-close-btn');
 closeButton.setAttribute('type', 'button');
+closeButton.addEventListener('click', () => { modalContainer.style.display = "none"; modalInfoContainer.innerHTML = ""; });
+
 
 //create the  modal info container. this is the second child of the modal div.
 const modalInfoContainer = document.createElement('div');
