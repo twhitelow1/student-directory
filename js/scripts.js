@@ -19,10 +19,10 @@
  *  https://randomuser.me/api/?results=#
  *
  * Exclude Fields that we do not need
- *  https://randomuser.me/api/?exc=login,gender,registered,cell,nat
+ *  https://randomuser.me/api/?exc=login,gender,registered,cell
  *
  * Combined API URL
- *  https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12
+ *  https://randomuser.me/api/?exc=login,gender,registered,cell&results=12&nat=us,br,ca
  *
  */
 
@@ -71,7 +71,7 @@ let galleryCards = document.querySelectorAll('#gallery .card')
 // ---------------------------------------------------------
 // FETCH FUNCTIONS
 // ---------------------------------------------------------
-let data = fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12', {
+let data = fetch('https://randomuser.me/api/?exc=login,gender,registered,cell&results=12&nat=us,br,ca', {
   method: "GET",
   withCredentials: true,
   headers: {
@@ -116,9 +116,6 @@ function generateGallery(employeesObject) {
     // console.log(galle)
     gallery.lastElementChild.addEventListener('click', (e) => addModalDetails(employees[e.currentTarget.dataset.id]))
   })
-
-  //now that gallery cards exist save them for later access
-  galleryCards = document.querySelectorAll('#gallery .card')
 };
 
 // add details to modal when clicked
