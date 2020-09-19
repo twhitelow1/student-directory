@@ -143,17 +143,22 @@ const addModalDetails = (employeeId) => {
 
   //set nav buttons
   // If current employee is the first one then disable the prev button
-  if (currentEmployee == 0) {
-    modalPrevBtn.disabled = true;
-    modalNextBtn.disabled = false;
-    //if current employee is the last employee then disable the next button
-  } else if (currentEmployee == 11) {
-    modalNextBtn.disabled = true;
-    modalPrevBtn.disabled = false;
-    //if current employee isn't the last employee or the first then both buttons work
+  if (visibleEmployees.length > 1) {
+    if (currentEmployee == 0) {
+      modalPrevBtn.disabled = true;
+      modalNextBtn.disabled = false;
+      //if current employee is the last employee then disable the next button
+    } else if (currentEmployee == (visibleEmployees.length - 1)) {
+      modalNextBtn.disabled = true;
+      modalPrevBtn.disabled = false;
+      //if current employee isn't the last employee or the first then both buttons work
+    } else {
+      modalPrevBtn.disabled = false;
+      modalNextBtn.disabled = false;
+    }
   } else {
-    modalPrevBtn.disabled = false;
-    modalNextBtn.disabled = false;
+    modalPrevBtn.disabled = true;
+    modalNextBtn.disabled = true;
   }
 
   //reformat birthday
