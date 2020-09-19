@@ -1,4 +1,4 @@
-# student-directory
+# employee-directory
 This is my Unit 4 Project for my TreeHouse Full Stack Javascript TechDegree.
 
 This project highlights my ability to create applications that communicate with APIs and work with microservices and databases to build useful tools and relevant infomation quickly and easily.
