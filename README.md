@@ -14,4 +14,5 @@ The functionality of the gallery and modal window was required to be limited to 
 # Extra Credit Additions
 
 * Extra CSS
-I added a body background pattern and changed the color of the header text to white
+I added a body background pattern and changed the color of the header text to white.
+Also on the modal popup the prev/next buttons are disabled when at the beginning or end of the employees and the button appears to be unclickable and the cursor shows not allowed symbol instead of a pointer. 

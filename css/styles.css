@@ -208,6 +208,11 @@ header h1 {
     transition: .4s ease-out;
     outline: none;
   }
+  .modal-btn-container .btn:disabled{
+      cursor: not-allowed;
+      color: rgba(0, 0, 0, 0.8);
+      background: transparent;
+  }
   
 
 /* ===================================== 

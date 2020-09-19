@@ -1,31 +1,3 @@
-/**
- * Random User API Object
- *
- * First Name       results.name.first
- * Last Name        results.name.last
- * Email            results.email
- * City             results.location.city
- * Phone Number     results.phone
- * Address
- *   street         results.location.street
- *   city           results.location.city
- *   state          results.location.state
- *   postcode       results.location.postcode
- * Birthday         results.dob.date
- * Picture          results.picture (.thumbnail / .medium / .large)
- *
- *
- * Request Multiple Users
- *  https://randomuser.me/api/?results=#
- *
- * Exclude Fields that we do not need
- *  https://randomuser.me/api/?exc=login,gender,registered,cell
- *
- * Combined API URL
- *  https://randomuser.me/api/?exc=login,gender,registered,cell&results=12&nat=us,br,ca
- *
- */
-
 // ---------------------------------------------------------
 // GENERATE MODAL
 // ---------------------------------------------------------
@@ -76,6 +48,35 @@ modalNextBtn.innerText = 'Next';
 // Append buttons and container to modal
 modalBtnContainer.appendChild(modalPrevBtn);
 modalBtnContainer.appendChild(modalNextBtn);
+modalDiv.appendChild(modalBtnContainer);
+
+// Add event listener to  buttons
+modalPrevBtn.addEventListener('click', () => prevEmployee());
+modalNextBtn.addEventListener('click', () => nextEmployee());
+
+//--------------------------------------------------------
+// Create searchbar
+//-------------------------------------------------------
+const searchContainer = document.querySelector('.search-container');
+// Create form element and add attributes
+searchBar = document.createElement('form')
+searchBar.setAttribute('action', '#');
+searchBar.setAttribute('method', 'get');
+// Create search input element and set attributes
+searchInput = document.createElement('input')
+searchInput.setAttribute('type', 'search');
+searchInput.setAttribute('id', 'search-input');
+searchInput.setAttribute('placeholder', 'Search...');
+// Create form submit input element and set attributes
+searchSubmit = document.createElement('inpu');
+searchSubmit.setAttribute('type', 'submit');
+searchSubmit.setAttribute('value', '&#x1F50D;');
+searchSubmit.setAttribute('id', 'search-submit');
+searchSubmit.setAttribute('class', 'search-submit');
+// Append form and form inputs
+searchBar.appendChild(searchInput);
+searchBar.appendChild(searchSubmit);
+searchContainer.appendChild(searchBar);
 
 //--------------------------------------------------------
 // Set Variables
@@ -84,6 +85,7 @@ modalBtnContainer.appendChild(modalNextBtn);
 const gallery = document.getElementById('gallery');
 const serachBar = document.querySelector('.search-container');
 let employees = {};
+let currentEmployee = 0;
 
 
 // ---------------------------------------------------------
@@ -132,14 +134,32 @@ function generateGallery(employeesObject) {
     `;
     gallery.insertAdjacentHTML('beforeend', html);
     // console.log(galle)
-    gallery.lastElementChild.addEventListener('click', (e) => addModalDetails(employees[e.currentTarget.dataset.id]))
+    gallery.lastElementChild.addEventListener('click', (e) => addModalDetails(e.currentTarget.dataset.id))
   })
 };
 
 // callback function for click event set to employee card in gallery
-const addModalDetails = (employee) => {
+const addModalDetails = (employeeId) => {
+  //grab employee object
+  employee = employees[employeeId]
   //show the modal
   modalContainer.style.display = "block";
+  currentEmployee = parseInt(employeeId)
+
+  //set nav buttons
+  // If current employee is the first one then disable the prev button
+  if (currentEmployee == 0) {
+    modalPrevBtn.disabled = true;
+    modalNextBtn.disabled = false;
+    //if current employee is the last employee then disable the next button
+  } else if (currentEmployee == 11) {
+    modalNextBtn.disabled = true;
+    modalPrevBtn.disabled = false;
+    //if current employee isn't the last employee or the first then both buttons work
+  } else {
+    modalPrevBtn.disabled = false;
+    modalNextBtn.disabled = false;
+  }
 
   //reformat birthday
   const date = new Date(employee.dob.date)
@@ -151,15 +171,32 @@ const addModalDetails = (employee) => {
   //populate the modal information and save to html variable
   let html = `
   <img class="modal-img" src="${employee.picture.large}" alt="profile picture">
-    <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
-    <p class="modal-text">${employee.email}</p>
-    <p class="modal-text cap">${employee.location.city}</p>
-    <hr>
-    <p class="modal-text">${employee.phone}</p>
-    <p class="modal-text">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
-    <p class="modal-text">Birthday: ${birthday}</p>
+      <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
+      <p class="modal-text">${employee.email}</p>
+      <p class="modal-text cap">${employee.location.city}</p>
+      <hr>
+        <p class="modal-text">${employee.phone}</p>
+        <p class="modal-text">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
+        <p class="modal-text">Birthday: ${birthday}</p>
   `
   modalInfoContainer.insertAdjacentHTML('beforeend', html);
 
 }
 
+// -------------------------------------------------------
+//  nextEmployee callback function for the modal next button
+// -------------------------------------------------------
+
+const nextEmployee = () => {
+  if (currentEmployee < 11) {
+    modalInfoContainer.innerHTML = "";
+    addModalDetails(currentEmployee + 1)
+  }
+}
+
+const prevEmployee = () => {
+  if (currentEmployee > 0) {
+    modalInfoContainer.innerHTML = "";
+    addModalDetails(currentEmployee - 1)
+  }
+}
