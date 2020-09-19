@@ -119,6 +119,13 @@ function generateGallery(employeesObject) {
 // add details to modal when clicked
 const addModalDetails = (employee) => {
   modalContainer.style.display = "block";
+  //reformat birthday
+  const date = new Date(employee.dob.date)
+  const m = date.getUTCMonth() + 1;
+  const d = date.getUTCDate();
+  const y = date.getUTCFullYear();
+  const birthday = `${m}/${d}/${y}`
+
   html = `
   <img class="modal-img" src="${employee.picture.large}" alt="profile picture">
     <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
@@ -127,7 +134,7 @@ const addModalDetails = (employee) => {
     <hr>
     <p class="modal-text">${employee.phone}</p>
     <p class="modal-text">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
-    <p class="modal-text">Birthday: ${employee.dob.date}</p>
+    <p class="modal-text">Birthday: ${birthday}</p>
   `
   modalInfoContainer.insertAdjacentHTML('beforeend', html);
 
