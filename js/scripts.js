@@ -132,6 +132,11 @@ function generateGallery(employeesObject) {
     gallery.lastElementChild.addEventListener('click', (e) => addModalDetails(e.currentTarget.dataset.id))
   })
 };
+// function to set value of prev and next buttons
+const setModalButtons = (prevBtn, nextBtn) => {
+  modalPrevBtn.disabled = prevBtn;
+  modalNextBtn.disabled = nextBtn;
+}
 
 // callback function for click event set to employee card in gallery
 const addModalDetails = (employeeId) => {
@@ -141,25 +146,23 @@ const addModalDetails = (employeeId) => {
   modalContainer.style.display = "block";
   currentEmployee = parseInt(employeeId)
 
-  //set nav buttons
+  // Setup modal prev/next buttons
   // If current employee is the first one then disable the prev button
   if (visibleEmployees.length > 1) {
     if (currentEmployee == 0) {
-      modalPrevBtn.disabled = true;
-      modalNextBtn.disabled = false;
+      setModalButtons(true, false);
       //if current employee is the last employee then disable the next button
     } else if (currentEmployee == (visibleEmployees.length - 1)) {
-      modalNextBtn.disabled = true;
-      modalPrevBtn.disabled = false;
+      setModalButtons(false, true);
       //if current employee isn't the last employee or the first then both buttons work
     } else {
-      modalPrevBtn.disabled = false;
-      modalNextBtn.disabled = false;
+      setModalButtons(false, false);
     }
+    // only one employee listed so buttons do not work
   } else {
-    modalPrevBtn.disabled = true;
-    modalNextBtn.disabled = true;
+    setModalButtons(true, true);
   }
+
 
   //reformat birthday
   const date = new Date(employee.dob.date)
