@@ -16,6 +16,7 @@ const closeButton = document.createElement("button");
 closeButton.setAttribute('class', 'modal-close-btn');
 closeButton.setAttribute('id', 'modal-close-btn');
 closeButton.setAttribute('type', 'button');
+closeButton.style.width = '20px'
 closeButton.addEventListener('click', () => { modalContainer.style.display = "none"; modalInfoContainer.innerHTML = ""; });
 
 
