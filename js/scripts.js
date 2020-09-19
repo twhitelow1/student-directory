@@ -101,20 +101,26 @@ let data = fetch('https://randomuser.me/api/?exc=login,gender,registered,cell&re
   })
 
 // ---------------------------------------------------------
-// HELPER FUNCTIONS
+// setEmployees Function
 // ---------------------------------------------------------
 
 function setEmployees(apiObject) {
-  //save the employeesObject to employees
+  //save the employees that were fetched to employees
   employees = apiObject;
   generateGallery(employees);
 }
+// ---------------------------------------------------------
+// generateGallery Function
+// function is called when the gallery needs to be reset and rendered to display the filtered employee list
+// ---------------------------------------------------------
 
 function generateGallery(employeesObject) {
+  // clear the gallery so it can be rebuilt
   gallery.innerHTML = "";
+  // whatever employees that were passed into the generateGallery are the filtered employees and should be used to display the employees
   visibleEmployees = employeesObject;
-  employeesObject.forEach((employee, index) => {
-
+  // for each employee create a card
+  visibleEmployees.forEach((employee, index) => {
     const html = `
       <div class="card" data-id="${index}">
         <div class="card-img-container">
@@ -127,25 +133,31 @@ function generateGallery(employeesObject) {
         </div>
       </div>
     `;
+    // insert the card
     gallery.insertAdjacentHTML('beforeend', html);
-    // console.log(galle)
+    // create and event listener that creates a modal of the data from the card when card is clicked
     gallery.lastElementChild.addEventListener('click', (e) => setModalDetails(e.currentTarget.dataset.id))
   })
 };
-// function to set value of prev and next buttons
+
+//-------------------------------------------------
+//  Helper function used in the setModalDetails function
+//  changes the visibiltyof the modal prev/nav buttons
+// -----------------------------------------------
 const setModalButtons = (prevBtn, nextBtn) => {
   modalPrevBtn.disabled = prevBtn;
   modalNextBtn.disabled = nextBtn;
 }
 
 //-----------------------------------------------
-//
+// Function that sets the information display in modal
 //--------------------------------------------------
 const setModalDetails = (employeeId) => {
   //grab employee object
   employee = visibleEmployees[employeeId]
-  //show the modal
+  //make the modal visible
   modalContainer.style.display = "block";
+  // set the global currentEmployee, which stores the visibleEmployees[index] of the current employee 
   currentEmployee = parseInt(employeeId)
 
   // Setup modal prev/next buttons
@@ -202,21 +214,22 @@ const prevEmployee = () => {
 }
 
 //  -----------------------------------------
-//  Event Listeners
+//  Search Bar Event Listener
 //  -----------------------------------------
 
 searchInput = document.getElementById('search-input');
 searchInput.addEventListener('keyup', (e) => {
   cardNames = document.querySelectorAll('.card-name')
   const searchInput = e.target.value;
-  // let employeeNames = employees.map(employee => `${employee.name.first} ${employee.name.last}`);
   newList = []
+  // for each employee combine first/last name and then if that fullname includes the search input then push that employee object into a new array
   employees.forEach(employee => {
     let fullname = `${employee.name.first} ${employee.name.last}`
     if (fullname.toLowerCase().includes(searchInput)) {
       newList.push(employee)
     }
   })
+  // now generate an new gallery with the new sorted array of employees
   generateGallery(newList);
 })
 
