@@ -126,7 +126,7 @@ const addModalDetails = (employee) => {
     <p class="modal-text cap">${employee.city}</p>
     <hr>
     <p class="modal-text">${employee.phone}</p>
-    <p class="modal-text">${employee.location.street}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
+    <p class="modal-text">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
     <p class="modal-text">Birthday: ${employee.dob.date}</p>
   `
   modalInfoContainer.insertAdjacentHTML('beforeend', html);
