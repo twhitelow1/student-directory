@@ -62,20 +62,12 @@ const searchContainer = document.querySelector('.search-container');
 searchBar = document.createElement('form')
 searchBar.setAttribute('action', '#');
 searchBar.setAttribute('method', 'get');
-// Create search input element and set attributes
-searchInput = document.createElement('input')
-searchInput.setAttribute('type', 'search');
-searchInput.setAttribute('id', 'search-input');
-searchInput.setAttribute('placeholder', 'Search...');
-// Create form submit input element and set attributes
-searchSubmit = document.createElement('inpu');
-searchSubmit.setAttribute('type', 'submit');
-searchSubmit.setAttribute('value', '&#x1F50D;');
-searchSubmit.setAttribute('id', 'search-submit');
-searchSubmit.setAttribute('class', 'search-submit');
+
 // Append form and form inputs
-searchBar.appendChild(searchInput);
-searchBar.appendChild(searchSubmit);
+searchBar.innerHTML = `
+      <input type="search" id="search-input" class="search-input" placeholder="Search...">
+      <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    `
 searchContainer.appendChild(searchBar);
 
 //--------------------------------------------------------
@@ -85,6 +77,7 @@ searchContainer.appendChild(searchBar);
 const gallery = document.getElementById('gallery');
 const serachBar = document.querySelector('.search-container');
 let employees = {};
+let visibleEmployees = [];
 let currentEmployee = 0;
 
 
@@ -118,6 +111,8 @@ function setEmployees(apiObject) {
 }
 
 function generateGallery(employeesObject) {
+  gallery.innerHTML = "";
+  visibleEmployees = employeesObject;
   employeesObject.forEach((employee, index) => {
 
     const html = `
@@ -200,3 +195,23 @@ const prevEmployee = () => {
     addModalDetails(currentEmployee - 1)
   }
 }
+
+//  -----------------------------------------
+//  Event Listeners
+//  -----------------------------------------
+
+searchInput = document.getElementById('search-input');
+searchInput.addEventListener('keyup', (e) => {
+  cardNames = document.querySelectorAll('.card-name')
+  const searchInput = e.target.value;
+  // let employeeNames = employees.map(employee => `${employee.name.first} ${employee.name.last}`);
+  newList = []
+  employees.forEach(employee => {
+    let fullname = `${employee.name.first} ${employee.name.last}`
+    if (fullname.toLowerCase().includes(searchInput)) {
+      newList.push(employee)
+    }
+  })
+  generateGallery(newList);
+})
+
