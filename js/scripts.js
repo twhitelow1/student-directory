@@ -129,7 +129,7 @@ function generateGallery(employeesObject) {
     `;
     gallery.insertAdjacentHTML('beforeend', html);
     // console.log(galle)
-    gallery.lastElementChild.addEventListener('click', (e) => addModalDetails(e.currentTarget.dataset.id))
+    gallery.lastElementChild.addEventListener('click', (e) => setModalDetails(e.currentTarget.dataset.id))
   })
 };
 // function to set value of prev and next buttons
@@ -138,8 +138,10 @@ const setModalButtons = (prevBtn, nextBtn) => {
   modalNextBtn.disabled = nextBtn;
 }
 
-// callback function for click event set to employee card in gallery
-const addModalDetails = (employeeId) => {
+//-----------------------------------------------
+//
+//--------------------------------------------------
+const setModalDetails = (employeeId) => {
   //grab employee object
   employee = visibleEmployees[employeeId]
   //show the modal
@@ -162,7 +164,6 @@ const addModalDetails = (employeeId) => {
   } else {
     setModalButtons(true, true);
   }
-
 
   //reformat birthday
   const date = new Date(employee.dob.date)
@@ -187,21 +188,17 @@ const addModalDetails = (employeeId) => {
 }
 
 // -------------------------------------------------------
-//  nextEmployee callback function for the modal next button
+//  Callback functions for the modal previous and next buttons
 // -------------------------------------------------------
 
 const nextEmployee = () => {
-  if (currentEmployee < 11) {
-    modalInfoContainer.innerHTML = "";
-    addModalDetails(currentEmployee + 1)
-  }
+  modalInfoContainer.innerHTML = "";
+  setModalDetails(currentEmployee + 1)
 }
 
 const prevEmployee = () => {
-  if (currentEmployee > 0) {
-    modalInfoContainer.innerHTML = "";
-    addModalDetails(currentEmployee - 1)
-  }
+  modalInfoContainer.innerHTML = "";
+  setModalDetails(currentEmployee - 1)
 }
 
 //  -----------------------------------------
