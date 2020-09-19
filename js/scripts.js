@@ -52,7 +52,7 @@ function generateGallery(employees) {
     const html = `
       <div class="card">
         <div class="card-img-container">
-            <img class="card-img" src="${employee.picture.medium}" alt="profile picture">
+            <img class="card-img" src="${employee.picture.large}" alt="profile picture">
         </div>
         <div class="card-info-container">
             <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
@@ -65,6 +65,57 @@ function generateGallery(employees) {
   })
 };
 
- // ---------------------------------------------------------
- // EVENT FUNCTIONS
- // ---------------------------------------------------------
+// ---------------------------------------------------------
+// EVENT FUNCTIONS
+// ---------------------------------------------------------
+
+// ---------------------------------------------------------
+// GENERATE MODAL
+// ---------------------------------------------------------
+
+// create modal-container div - this is the parent element of the modal and is appended to body
+const modalContainer = document.createElement("div");
+modalContainer.className = "modal-container"
+modalContainer.style.display = "none"
+
+// create the modal class div that holds the pop up of the modal and is appended to the modal-container
+const modalDiv = document.createElement("div")
+modalDiv.className = "modal"
+
+//create the close X button that will be on the top of the modal. it is the first child of the modal div
+const closeButton = document.createElement("button");
+closeButton.setAttribute('class', 'modal-close-btn');
+closeButton.setAttribute('id', 'modal-close-btn');
+closeButton.setAttribute('type', 'button');
+
+//create the  modal info container. this is the second child of the modal div.
+const modalInfoContainer = document.createElement('div');
+modalInfoContainer.setAttribute('class', 'modal-info-container');
+
+//build modal and append to body
+modalContainer.appendChild(modalDiv);
+modalDiv.appendChild(closeButton);
+modalDiv.appendChild(modalInfoContainer);
+document.body.appendChild(modalContainer);
+
+  // < div class="modal-container" >
+  //   <div class="modal">
+  //     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+  //     <div class="modal-info-container">
+  //       <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+  //         <h3 id="name" class="modal-name cap">name</h3>
+  //         <p class="modal-text">email</p>
+  //         <p class="modal-text cap">city</p>
+  //         <hr>
+  //           <p class="modal-text">(555) 555-5555</p>
+  //           <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+  //           <p class="modal-text">Birthday: 10/21/2015</p>
+  //                   </div>
+  //               </div>
+
+  //               // IMPORTANT: Below is only for exceeds tasks
+  //               <div class="modal-btn-container">
+  //         <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+  //         <button type="button" id="modal-next" class="modal-next btn">Next</button>
+  //       </div>
+  //     </div>
