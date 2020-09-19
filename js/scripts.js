@@ -25,7 +25,6 @@
  *  https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12
  *
  */
-
 fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12', {
   method: "GET",
   withCredentials: true,
@@ -33,3 +32,11 @@ fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=1
     "X-Auth-Token": "8F0X-O1UM-B3WJ-6G4W"
   }
 })
+  .then(response => response.json())
+  .then(function (data) {
+    console.log(data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+
