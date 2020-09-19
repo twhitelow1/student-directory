@@ -216,9 +216,7 @@ const prevEmployee = () => {
 //  -----------------------------------------
 //  Search Bar Event Listener
 //  -----------------------------------------
-
-searchInput = document.getElementById('search-input');
-searchInput.addEventListener('keyup', (e) => {
+const doSearch = (e) => {
   cardNames = document.querySelectorAll('.card-name')
   const searchInput = e.target.value;
   newList = []
@@ -231,5 +229,9 @@ searchInput.addEventListener('keyup', (e) => {
   })
   // now generate an new gallery with the new sorted array of employees
   generateGallery(newList);
-})
+}
+
+searchInput = document.getElementById('search-input');
+searchInput.addEventListener('keyup', e => doSearch(e))
+searchInput.addEventListener('search', e => doSearch(e))
 
