@@ -25,6 +25,11 @@
  *  https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12
  *
  */
+
+const gallery = document.getElementById('gallery');
+const serachBar = document.querySelector('.search-container');
+
+
 fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=12', {
   method: "GET",
   withCredentials: true,
@@ -33,10 +38,5 @@ fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,nat&results=1
   }
 })
   .then(response => response.json())
-  .then(function (data) {
-    console.log(data);
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-
+  .then(data => console.log(data.results))
+  .catch(error => console.log(error))
