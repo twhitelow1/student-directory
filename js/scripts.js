@@ -112,7 +112,7 @@ function generateGallery(employeesObject) {
     `;
     gallery.insertAdjacentHTML('beforeend', html);
     // console.log(galle)
-    gallery.lastElementChild.addEventListener('click', (e) => console.log(e.currentTarget))
+    gallery.lastElementChild.addEventListener('click', (e) => addModalDetails(employees[e.currentTarget.dataset.id]))
   })
 
   //now that gallery cards exist save them for later access
@@ -120,17 +120,17 @@ function generateGallery(employeesObject) {
 };
 
 // add details to modal when clicked
-const addModalDetails = (id) => {
+const addModalDetails = (employee) => {
   modalContainer.style.display = "block";
   html = `
-  <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-    <h3 id="name" class="modal-name cap">name</h3>
-    <p class="modal-text">email</p>
-    <p class="modal-text cap">city</p>
+  <img class="modal-img" src="${employee.picture.large}" alt="profile picture">
+    <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
+    <p class="modal-text">${employee.email}</p>
+    <p class="modal-text cap">${employee.city}</p>
     <hr>
-    <p class="modal-text">(555) 555-5555</p>
-    <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-    <p class="modal-text">Birthday: 10/21/2015</p>
+    <p class="modal-text">${employee.phone}</p>
+    <p class="modal-text">${employee.location.street}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
+    <p class="modal-text">Birthday: ${employee.dob.date}</p>
   `
   modalInfoContainer.insertAdjacentHTML('beforeend', html);
 
