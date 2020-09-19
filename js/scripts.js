@@ -55,34 +55,16 @@ modalDiv.appendChild(closeButton);
 modalDiv.appendChild(modalInfoContainer);
 document.body.appendChild(modalContainer);
 
-
-
-// < div class="modal-container" >
-//   <div class="modal">
-//     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-//     <div class="modal-info-container">
-//       <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-//         <h3 id="name" class="modal-name cap">name</h3>
-//         <p class="modal-text">email</p>
-//         <p class="modal-text cap">city</p>
-//         <hr>
-//           <p class="modal-text">(555) 555-5555</p>
-//           <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-//           <p class="modal-text">Birthday: 10/21/2015</p>
-//                   </div>
-//               </div>
-
-//               // IMPORTANT: Below is only for exceeds tasks
-//               <div class="modal-btn-container">
-//         <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-//         <button type="button" id="modal-next" class="modal-next btn">Next</button>
-//       </div>
-//     </div>
+//--------------------------------------------------------
+// Set Variables
+// ------------------------------------------------------0
 
 const gallery = document.getElementById('gallery');
 const serachBar = document.querySelector('.search-container');
 let employees = {};
-let galleryCards = document.querySelectorAll('.gallery ');
+let galleryCards = document.querySelectorAll('#gallery .card')
+
+
 
 // ---------------------------------------------------------
 // FETCH FUNCTIONS
@@ -96,16 +78,26 @@ let data = fetch('https://randomuser.me/api/?exc=login,gender,registered,cell,na
 })
   .then(response => response.json())
   .then(data => generateGallery(data.results))
-  .catch(error => console.log(error))
+  .catch(error => {
+    gallery.innerHTML = `<h2> Looks like we had an issue grabbing the employees. Refresh the page.`
+    gallery.style.display = 'block';
+    gallery.style.color = 'tomato';
+    console.log(error)
+  })
 
 // ---------------------------------------------------------
 // HELPER FUNCTIONS
 // ---------------------------------------------------------
 
+function setEmployees(apiObject) {
+
+}
+
 function generateGallery(employeesObject) {
   //save the employeesObject to employees
   employees = employeesObject;
   employeesObject.forEach((employee, index) => {
+
     const html = `
       <div class="card" data-id="${index}">
         <div class="card-img-container">
@@ -119,10 +111,12 @@ function generateGallery(employeesObject) {
       </div>
     `;
     gallery.insertAdjacentHTML('beforeend', html);
+    // console.log(galle)
+    gallery.lastElementChild.addEventListener('click', (e) => console.log(e.currentTarget))
   })
 
   //now that gallery cards exist save them for later access
-  galleryCards = document.querySelectorAll('.gallery .card');
+  galleryCards = document.querySelectorAll('#gallery .card')
 };
 
 // add details to modal when clicked
@@ -145,5 +139,4 @@ const addModalDetails = (id) => {
 // ---------------------------------------------------------
 // EVENT FUNCTIONS
 // ---------------------------------------------------------
-
 
