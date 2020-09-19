@@ -218,7 +218,7 @@ const prevEmployee = () => {
 //  -----------------------------------------
 const doSearch = (e) => {
   cardNames = document.querySelectorAll('.card-name')
-  const searchInput = e.target.value;
+  const searchInput = e.target.value.toLowerCase();
   newList = []
   // for each employee combine first/last name and then if that fullname includes the search input then push that employee object into a new array
   employees.forEach(employee => {
