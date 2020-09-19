@@ -10,3 +10,8 @@ Using the Random User Generator API (https://randomuser.me/) to grab information
 Using the fetch API i request a JSON object from the Random User Generator API and parse the data so that 12 employees are listed in a grib with thier thumbnail image, full name, email, and location. Clicking the employee's image or name opens a modal window with more detailed information such as employee's birthday and address. 
 
 The functionality of the gallery and modal window was required to be limited to vanilla javascript and jquery. This is to illustrate that I have knowledge of how things run under the hood of the popular libraries and frameworks available today.
+
+# Extra Credit Additions
+
+* Extra CSS
+I added a body background pattern and changed the color of the header text to white

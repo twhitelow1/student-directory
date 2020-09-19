@@ -57,6 +57,26 @@ modalDiv.appendChild(closeButton);
 modalDiv.appendChild(modalInfoContainer);
 document.body.appendChild(modalContainer);
 
+// Create container for modal nav buttons
+const modalBtnContainer = document.createElement('div');
+modalBtnContainer.setAttribute('class', 'modal-btn-container');
+// Create the previous button
+const modalPrevBtn = document.createElement('button');
+modalPrevBtn.setAttribute('type', 'button');
+modalPrevBtn.setAttribute('id', 'modal-prev');
+modalPrevBtn.setAttribute('class', 'modal-prev btn');
+modalPrevBtn.innerText = 'Prev';
+// Create the next button
+const modalNextBtn = document.createElement('button');
+modalNextBtn.setAttribute('type', 'button');
+modalNextBtn.setAttribute('id', 'modal-next');
+modalNextBtn.setAttribute('class', 'modal-next btn');
+modalNextBtn.innerText = 'Next';
+
+// Append buttons and container to modal
+modalBtnContainer.appendChild(modalPrevBtn);
+modalBtnContainer.appendChild(modalNextBtn);
+
 //--------------------------------------------------------
 // Set Variables
 // ------------------------------------------------------0
@@ -116,9 +136,11 @@ function generateGallery(employeesObject) {
   })
 };
 
-// add details to modal when clicked
+// callback function for click event set to employee card in gallery
 const addModalDetails = (employee) => {
+  //show the modal
   modalContainer.style.display = "block";
+
   //reformat birthday
   const date = new Date(employee.dob.date)
   const m = date.getUTCMonth() + 1;
@@ -126,7 +148,8 @@ const addModalDetails = (employee) => {
   const y = date.getUTCFullYear();
   const birthday = `${m}/${d}/${y}`
 
-  html = `
+  //populate the modal information and save to html variable
+  let html = `
   <img class="modal-img" src="${employee.picture.large}" alt="profile picture">
     <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
     <p class="modal-text">${employee.email}</p>

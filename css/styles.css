@@ -16,7 +16,8 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    /* background: rgba(235, 235, 235, 0.9); */
+    background-image: url('../img/double-bubble-dark.png');
 }
 
 header {
@@ -29,14 +30,15 @@ header {
 }
 
 header h1 {
-    font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    font-size: 2em;
+    color: rgb(255, 255, 255);
     margin-top: 35px;
+    text-shadow: 1px 1px 5px rgba(255,255,255, 0.5);
 }
 
 .search-input {
     padding: 0.4rem 1rem;
-    border: 1px solid rgba(200, 200, 200, 0.9);
+    border: 1px solid rgba(200, 200, 200, 0.5);
     border-radius: 0.25rem 0 0 0.25rem ;
     max-width: 20rem;
     transition: .4s ease-out;
