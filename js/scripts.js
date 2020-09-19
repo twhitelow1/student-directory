@@ -136,7 +136,7 @@ function generateGallery(employeesObject) {
 // callback function for click event set to employee card in gallery
 const addModalDetails = (employeeId) => {
   //grab employee object
-  employee = employees[employeeId]
+  employee = visibleEmployees[employeeId]
   //show the modal
   modalContainer.style.display = "block";
   currentEmployee = parseInt(employeeId)
